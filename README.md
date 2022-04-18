@@ -36,3 +36,14 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+
+
+Sample Ansible commands:
+-----------------------
+
+This will install docker under the 'polinchakb' user.
+
+```
+ansible-playbook -i tests/inventory tests/test.yml --extra-vars "user=polinchakb"
+```
