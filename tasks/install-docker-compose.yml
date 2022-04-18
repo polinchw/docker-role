@@ -1,0 +1,7 @@
+---
+- name: Download docker-compose
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.27.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  tags: docker
+- name: Make docker-compse executable
+  shell: chmod +x /usr/local/bin/docker-compose
+  tags: docker

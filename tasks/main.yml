@@ -1,0 +1,14 @@
+---
+# tasks file for docker-role
+- include_tasks: install-docker.yml
+  args:
+    apply:
+      become: yes
+      become_user: root
+  tags: docker
+- include_tasks: install-docker-compose.yml
+  args:
+    apply:
+      become: yes
+      become_user: root
+  tags: docker

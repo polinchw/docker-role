@@ -1,0 +1,64 @@
+---
+- name: Ensure group "docker" exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+  tags: docker
+
+- name: Install apt packages
+  apt:
+    update_cache: yes
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+    state: present
+  tags: docker
+
+- name: Copy gpg key
+  copy:
+    src: gpg
+    dest: "/home/{{ user }}/gpg"
+  tags: docker
+
+- name: Add Docker GPG key
+  apt_key:
+    file: "/home/{{ user }}/gpg"
+    state: present
+  tags: docker
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release | lower }} stable
+    state: present
+  retries: 3
+
+- name: Install docker
+  apt:
+    update_cache: yes
+    name: docker-ce
+    state: present
+  tags: docker
+
+- name: Copy Google gpg key
+  copy:
+    src: apt-key.gpg
+    dest: "/home/{{ user }}/apt-key.gpg"
+  tags: docker
+
+- name: Add Google official GPG key
+  apt_key:
+    file: "/home/{{ user }}/apt-key.gpg"
+    state: present
+  tags: docker
+  retries: 3
+
+- name: adding existing user ubuntu to group docker
+  user:
+    name: "{{ user }}"
+    groups: docker
+    append: yes
+  tags: docker
+
