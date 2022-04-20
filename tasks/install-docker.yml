@@ -20,12 +20,12 @@
 - name: Copy gpg key
   copy:
     src: gpg
-    dest: "/home/{{ user }}/gpg"
+    dest: "/home/{{ ansible_user_id }}/gpg"
   tags: docker
 
 - name: Add Docker GPG key
   apt_key:
-    file: "/home/{{ user }}/gpg"
+    file: "/home/{{ ansible_user_id }}/gpg"
     state: present
   tags: docker
 
@@ -45,19 +45,19 @@
 - name: Copy Google gpg key
   copy:
     src: apt-key.gpg
-    dest: "/home/{{ user }}/apt-key.gpg"
+    dest: "/home/{{ ansible_user_id }}/apt-key.gpg"
   tags: docker
 
 - name: Add Google official GPG key
   apt_key:
-    file: "/home/{{ user }}/apt-key.gpg"
+    file: "/home/{{ ansible_user_id }}/apt-key.gpg"
     state: present
   tags: docker
   retries: 3
 
 - name: adding existing user ubuntu to group docker
   user:
-    name: "{{ user }}"
+    name: "{{ ansible_user_id }}"
     groups: docker
     append: yes
   tags: docker
