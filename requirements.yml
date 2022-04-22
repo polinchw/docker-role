@@ -1,0 +1,5 @@
+# Install a role from a specific git branch
+- name: docker-role
+  scm: git
+  src: git@github.com:polinchw/docker-role.git
+  version: master
