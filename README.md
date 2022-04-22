@@ -47,5 +47,5 @@ Sample Ansible commands:
 This will install docker under the 'polinchakb' user.
 
 ```
-ansible-playbook -i tests/inventory tests/test.yml --extra-vars "user=polinchakb"
+ansible-playbook -i tests/inventory tests/test.yml -u polinchakb
 ```
